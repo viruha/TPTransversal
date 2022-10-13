@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-10-2022 a las 01:10:41
+-- Tiempo de generación: 14-10-2022 a las 01:35:58
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `univerisdad`
+-- Base de datos: `universidad`
 --
 
 -- --------------------------------------------------------
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `alumno` (
   `idAlumno` int(11) NOT NULL,
-  `dni` int(11) DEFAULT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
-  `apellido` varchar(100) DEFAULT NULL,
-  `fechaDeNacimiento` date NOT NULL,
-  `estado` tinyint(1) DEFAULT NULL
+  `dni` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `fechaDeNacimiento` date DEFAULT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -44,9 +44,9 @@ CREATE TABLE `alumno` (
 
 CREATE TABLE `inscripcion` (
   `idInscripcion` int(11) NOT NULL,
-  `idAlumno` int(11) DEFAULT NULL,
-  `idMateria` int(11) DEFAULT NULL,
-  `nota` float NOT NULL
+  `idAlumno` int(11) NOT NULL,
+  `idMateria` int(11) NOT NULL,
+  `nota` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -57,9 +57,9 @@ CREATE TABLE `inscripcion` (
 
 CREATE TABLE `materia` (
   `idMateria` int(11) NOT NULL,
-  `nombreMateria` varchar(50) DEFAULT NULL,
-  `anio` varchar(20) DEFAULT NULL,
-  `estado` tinyint(1) DEFAULT NULL
+  `nombreMateria` varchar(50) NOT NULL,
+  `anio` varchar(20) NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -70,7 +70,8 @@ CREATE TABLE `materia` (
 -- Indices de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  ADD PRIMARY KEY (`idAlumno`);
+  ADD PRIMARY KEY (`idAlumno`),
+  ADD UNIQUE KEY `dni` (`dni`);
 
 --
 -- Indices de la tabla `inscripcion`
