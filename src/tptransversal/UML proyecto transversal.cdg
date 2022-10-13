@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="UML proyecto transversal">
+  <ClassDiagramComponents>
+    <Class name="Alumno" package="" visibility="public" xPosition="28.0" yPosition="126.0">
+      <Fields>
+        <Field name="dni" type="Int" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="apellido" type="String" visibility="private"/>
+        <Field name="idAlumno" type="Int" visibility="private"/>
+        <Field name="fechaDeNacimiento" type="Date" visibility="private"/>
+        <Field name="estado" type="Boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="dni"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="apellido"/>
+          <Argument type="int" name="idAlumno"/>
+          <Argument type="Date" name="fechaDeNacimiento"/>
+          <Argument type="Boolean" name="estado"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="untitledMethod" returnType="void" visibility="public"/>
+        <Method name="untitledMethod1" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Materia" package="" visibility="public" xPosition="389.0" yPosition="393.0">
+      <Fields>
+        <Field name="idMateria" type="Int" visibility="private"/>
+        <Field name="nombreMateria" type="String" visibility="private"/>
+        <Field name="anio" type="String" visibility="private"/>
+        <Field name="estado" type="Boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Int" name="idMateria"/>
+          <Argument type="string" name="nombreMateria"/>
+          <Argument type="String" name="anio"/>
+          <Argument type="Boolean" name="estado"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="Inscripcion" package="" visibility="public" xPosition="683.0" yPosition="23.0">
+      <Fields>
+        <Field name="numeroInscripcion" type="ID" visibility="private"/>
+        <Field name="nota" type="Float" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="materia" source="Inscripcion" target="Materia" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="alumno" source="Inscripcion" target="Alumno" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="materiasInscripto" source="Alumno" target="Inscripcion" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
