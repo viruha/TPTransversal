@@ -36,7 +36,7 @@
     </Class>
     <Class name="Materia" package="" visibility="public" xPosition="593.0" yPosition="378.0">
       <Fields>
-        <Field name="idMateria" type="Int" visibility="private"/>
+        <Field name="idMateria" type="int" visibility="private"/>
         <Field name="nombreMateria" type="String" visibility="private"/>
         <Field name="anio" type="String" visibility="private"/>
         <Field name="estado" type="Boolean" visibility="private"/>
@@ -44,12 +44,12 @@
       <Constructors>
         <Constructor visibility="public">
           <Argument type="Int" name="idMateria"/>
-          <Argument type="string" name="nombreMateria"/>
+          <Argument type="String" name="nombreMateria"/>
           <Argument type="String" name="anio"/>
           <Argument type="Boolean" name="estado"/>
         </Constructor>
         <Constructor visibility="public">
-          <Argument type="string" name="nombreMateria"/>
+          <Argument type="String" name="nombreMateria"/>
           <Argument type="String" name="anio"/>
           <Argument type="Boolean" name="estado"/>
         </Constructor>
