@@ -2,7 +2,7 @@
 
 <ClassDiagram name="UML proyecto transversal">
   <ClassDiagramComponents>
-    <Class name="Alumno" package="" visibility="public" xPosition="54.0" yPosition="31.0">
+    <Class name="Alumno" package="" visibility="public" xPosition="43.0" yPosition="32.0">
       <Fields>
         <Field name="idAlumno" type="int" visibility="private"/>
         <Field name="dni" type="int" visibility="private"/>
