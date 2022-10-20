@@ -17,13 +17,26 @@ public class Alumno {
     private Boolean estado;
 
     public Alumno(int idAlumno, int dni, String nombre, String apellido, LocalDate fechaDeNacimiento, Boolean estado) {
+        this.idAlumno = idAlumno;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaDeNacimiento = fechaDeNacimiento;
+        this.estado = estado;
     }
 
     public Alumno(int dni, String nombre, String apellido, LocalDate fechaDeNacimiento, Boolean estado) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaDeNacimiento = fechaDeNacimiento;
+        this.estado = estado;
     }
 
     public Alumno() {
     }
+
+
 
     public int getIdAlumno() {
         return idAlumno;

@@ -1,5 +1,6 @@
 
 package tptransversal.data;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ public class Conexion {
     private String password;
     private Connection conexion;
 
-    public Conexion(String url, String usuario, String password, Connection conexion) throws ClassNotFoundException {
+    public Conexion(String url, String usuario, String password){
         this.url = url;
         this.usuario = usuario;
         this.password = password;
