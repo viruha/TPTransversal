@@ -108,7 +108,10 @@ public class Alumno {
         return this.idAlumno == other.idAlumno;
     }
 
+    @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "Alumno{" + "idAlumno=" + idAlumno + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaDeNacimiento=" + fechaDeNacimiento + ", estado=" + estado + '}';
     }
+
+
 }

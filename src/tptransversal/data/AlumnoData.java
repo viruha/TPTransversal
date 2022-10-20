@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -20,7 +21,7 @@ public class AlumnoData {
         this.con = con.conectar();
     }
         
-    public void guardarAlumno(Alumno al){
+    public void guardarAlumno(Alumno al){ 
         String query = "INSERT INTO `alumno`(`dni`, `nombre`, `apellido`, `fechaDeNacimiento`, `estado`) VALUES (?,?,?,?,?)";
         
         try {
@@ -42,12 +43,86 @@ public class AlumnoData {
         } catch (SQLException ex) {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-                
 
-        
-        
     }
     
+    public Alumno buscarAlumno(int id){
+        Alumno al = null;
+        String sql = "SELECT * FROM `alumno` WHERE idalumno = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,id);
+            ResultSet rs= ps.executeQuery();
+            while (rs.next()) {
+                al = new Alumno();
+                al.setIdAlumno(rs.getInt("idalumno"));
+                al.setDni(rs.getInt("dni"));
+                al.setNombre(rs.getString("nombre"));
+                al.setApellido(rs.getString("apellido"));
+                al.setFechaDeNacimiento(rs.getDate("fechaDeNacimiento").toLocalDate());
+                al.setEstado(rs.getBoolean("estado"));
+              
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return al;
+    }
+  
+    public ArrayList<Alumno> listarAlumnos(){
+        ArrayList alumnos = new ArrayList<>();
+        Alumno al = null;
+                String sql = "SELECT * FROM `alumno`";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            while (rs.next()) {
+                al = new Alumno();
+                al.setIdAlumno(rs.getInt("idalumno"));
+                al.setDni(rs.getInt("dni"));
+                al.setNombre(rs.getString("nombre"));
+                al.setApellido(rs.getString("apellido"));
+                al.setFechaDeNacimiento(rs.getDate("fechaDeNacimiento").toLocalDate());
+                al.setEstado(rs.getBoolean("estado"));
+                alumnos.add(al);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return alumnos;
+    }
     
+    public void actualizarAlumno(Alumno al){
+           String query = "UPDATE `alumno` SET `dni`=?,`nombre`=?,`apellido`=?,`fechaDeNacimiento`=?,`estado`=? WHERE `idAlumno` = ?";
+        
+        try {
+            PreparedStatement ps =  con.prepareStatement(query);
+            ps.setInt(1, al.getDni());
+            ps.setString(2, al.getNombre());
+            ps.setString(3, al.getApellido());
+            ps.setDate(4, Date.valueOf(al.getFechaDeNacimiento()));
+            ps.setBoolean(5, al.getEstado());
+            ps.setInt(6, al.getIdAlumno());
+            ps.executeUpdate();
+                                  JOptionPane.showMessageDialog(null, "El alumno fue actualizado");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "El alumno fue NO fue actualizado");
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void borrarAlumno(int id){
+        String sql = "DELETE FROM `alumno` WHERE idalumno = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,id);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "El alumno fue borrado");
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "El alumno NO pudo ser borrado");
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }
