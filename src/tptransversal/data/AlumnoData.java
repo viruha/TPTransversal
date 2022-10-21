@@ -31,7 +31,12 @@ public class AlumnoData {
             ps.setString(3, al.getApellido());
             ps.setDate(4, Date.valueOf(al.getFechaDeNacimiento()));
             ps.setBoolean(5, al.getEstado());
-            ps.executeUpdate();
+            int resultado = ps.executeUpdate();
+            if (resultado > 0) {
+                JOptionPane.showMessageDialog(null, "Se agrego el alumno");
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al guardar en la bd");
+            }
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 al.setIdAlumno(rs.getInt(1));
@@ -70,7 +75,7 @@ public class AlumnoData {
     }
   
     public ArrayList<Alumno> listarAlumnos(){
-        ArrayList alumnos = new ArrayList<>();
+        ArrayList<Alumno> alumnos = new ArrayList<>();
         Alumno al = null;
                 String sql = "SELECT * FROM `alumno`";
         try {

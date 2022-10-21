@@ -24,10 +24,10 @@ public class TPTransversal {
        
 
 //listaalumnos
-        // ArrayList listaalumnos = alD.listarAlumnos();
-       // for (Object al : listaalumnos) {
-       //     System.out.println(al);
-       // }
+         ArrayList listaalumnos = alD.listarAlumnos();
+        for (Object al : listaalumnos) {
+            System.out.println(al);
+        }
        
   //actualizarAlumno
    //    Alumno al = alD.buscarAlumno(4);

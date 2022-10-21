@@ -9,22 +9,22 @@ import java.util.logging.Logger;
 
 
 public class Conexion {
+    // completar los datos de conexion aca y conexion null
     private String url;
     private String usuario;
     private String password;
     private Connection conexion;
 
+    // poner privado para singleton
     public Conexion(String url, String usuario, String password){
         this.url = url;
         this.usuario = usuario;
         this.password = password;
-        //this.conexion = conexion;
-        //Carga driver mariaDB
-        //Class.forName("org.mariadb.jdbc.Driver");
     }
-    
+    //poner static
     public Connection conectar(){
         if(conexion == null)
+            //construir conexion vacia llamar constructor misma 
         {
             try {
                 Class.forName("org.mariadb.jdbc.Driver");
