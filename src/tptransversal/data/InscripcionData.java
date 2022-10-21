@@ -97,7 +97,7 @@ public class InscripcionData {
         return inscripciones;
     }
 
-    public void actualizarMateria(Inscripcion ins) {
+    public void actualizaInscripcion(Inscripcion ins) {
         String query = "UPDATE `inscripcion` SET `idAlumno`=?,`idMateria`=?,`nota`=? WHERE `idInscripcion`=?";
 
         try {
@@ -113,7 +113,7 @@ public class InscripcionData {
         }
     }
 
-    public void borrarMateria(int id) {
+    public void borrarInscripcion(int id) {
         String sql = "DELETE FROM `inscripcion` WHERE idInscripcion = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
