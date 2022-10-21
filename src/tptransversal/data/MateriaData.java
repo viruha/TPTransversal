@@ -1,7 +1,6 @@
 package tptransversal.data;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,20 +40,18 @@ public class MateriaData {
                 JOptionPane.showMessageDialog(null, "No se pudo recuperar el ID de la materia");
                 ps.close();
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-    
-     public Materia buscarMaeria(int id){
+
+    public Materia buscarMaeria(int id) {
         Materia ma = null;
         String sql = "SELECT * FROM `materia` WHERE idMateria = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1,id);
-            ResultSet rs= ps.executeQuery();
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ma = new Materia();
                 ma.setIdMateria(rs.getInt("idMateria"));
@@ -67,14 +64,14 @@ public class MateriaData {
         }
         return ma;
     }
-     
-      public ArrayList<Materia> listarMaterias(){
+
+    public ArrayList<Materia> listarMaterias() {
         ArrayList<Materia> materias = new ArrayList<>();
         Materia ma = null;
-                String sql = "SELECT * FROM `materia`";
+        String sql = "SELECT * FROM `materia`";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs= ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ma = new Materia();
                 ma.setIdMateria(rs.getInt("idMateria"));
@@ -86,14 +83,14 @@ public class MateriaData {
         } catch (SQLException ex) {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
-    return materias;
+        return materias;
     }
-    
-          public void actualizarMateria(Materia ma){
-           String query = "UPDATE `materia` SET `nombreMateria`=?,`anio`=?,`estado`=? WHERE `idMateria` = ?";
-        
+
+    public void actualizarMateria(Materia ma) {
+        String query = "UPDATE `materia` SET `nombreMateria`=?,`anio`=?,`estado`=? WHERE `idMateria` = ?";
+
         try {
-            PreparedStatement ps =  con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, ma.getNombreMateria());
             ps.setString(2, ma.getAnio());
             ps.setBoolean(3, ma.getEstado());
@@ -105,20 +102,18 @@ public class MateriaData {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void borrarMateria(int id){
+
+    public void borrarMateria(int id) {
         String sql = "DELETE FROM `materia` WHERE idMateria = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "La materia fue borrada");
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "La materia NO pudo ser borrada");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-  
 }
