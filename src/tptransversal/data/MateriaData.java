@@ -103,7 +103,20 @@ public class MateriaData {
         }
     }
 
-    public void borrarMateria(int id) {
+    public void borrarMateria(Materia ma) {
+        String query = "UPDATE `materia` SET `estado`= 0 WHERE `idMateria` = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setBoolean(3, ma.getEstado());
+            ps.setInt(4, ma.getIdMateria());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "La Materia fue suspendida");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "La Materia NO fue Suspendida");
+            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        /*utiliza int id como parametro
         String sql = "DELETE FROM `materia` WHERE idMateria = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -115,5 +128,6 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null, "La materia NO pudo ser borrada");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
+*/
     }
 }
