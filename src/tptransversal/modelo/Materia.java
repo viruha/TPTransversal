@@ -11,9 +11,16 @@ public class Materia {
     private Boolean estado;
 
     public Materia(int idMateria, String nombreMateria, String anio, Boolean estado) {
+        this.idMateria = idMateria;
+        this.nombreMateria = nombreMateria;
+        this.anio = anio;
+        this.estado = estado;
     }
 
     public Materia(String nombreMateria, String anio, Boolean estado) {
+        this.nombreMateria = nombreMateria;
+        this.anio = anio;
+        this.estado = estado;
     }
 
     public Materia() {
@@ -73,9 +80,9 @@ public class Materia {
         return this.idMateria == other.idMateria;
     }
 
-
-
+    @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "Materia{" + "idMateria=" + idMateria + ", nombreMateria=" + nombreMateria + ", anio=" + anio + ", estado=" + estado + '}';
     }
+
 }

@@ -113,12 +113,12 @@ public class AlumnoData {
     }
 
     public void borrarAlumno(Alumno al) {
-        String query = "UPDATE `estado`= 0 WHERE `idAlumno` = ?";
+        String query = "UPDATE alumno SET estado = 0 WHERE `idAlumno` = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setBoolean(5, al.getEstado());
-            ps.setInt(6, al.getIdAlumno());
+            //ps.setBoolean(5, al.getEstado());
+            ps.setInt(1, al.getIdAlumno());
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "El alumno fue Suspendido");
         } catch (SQLException ex) {
