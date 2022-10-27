@@ -11,13 +11,21 @@ public class Inscripcion {
     private float nota;
 
     public Inscripcion(int idInscripcion, Alumno idAlumno, Materia idMateria, float nota) {
+        this.idInscripcion = idInscripcion;
+        this.idAlumno = idAlumno;
+        this.idMateria = idMateria;
+        this.nota = nota;
     }
 
     public Inscripcion(Alumno idAlumno, Materia idMateria, float nota) {
+        this.idAlumno = idAlumno;
+        this.idMateria = idMateria;
+        this.nota = nota;
     }
 
     public Inscripcion() {
     }
+
 
     public int getIdInscripcion() {
         return idInscripcion;
@@ -73,8 +81,11 @@ public class Inscripcion {
         return this.idInscripcion == other.idInscripcion;
     }
 
-
+    @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "Inscripcion{" + "idInscripcion=" + idInscripcion + ", Alumno=" + idAlumno.toString() + ", Materia=" + idMateria.toString() + ", nota=" + nota + '}';
     }
+
+
+
 }

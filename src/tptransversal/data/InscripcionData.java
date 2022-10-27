@@ -45,6 +45,7 @@ public class InscripcionData {
                 ps.close();
             }
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo registrar la inscripcion");
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -65,7 +66,7 @@ public class InscripcionData {
                 MateriaData matD = new MateriaData(conexion);
                 ins.setIdInscripcion(rs.getInt("idInscripcion"));
                 ins.setIdAlumno(aluD.buscarAlumno(rs.getInt("idAlumno")));
-                ins.setIdMateria(matD.buscarMaeria(rs.getInt("idMateria")));
+                ins.setIdMateria(matD.buscarMateria(rs.getInt("idMateria")));
                 ins.setNota(rs.getFloat("nota"));
             }
         } catch (SQLException ex) {
@@ -91,7 +92,7 @@ public class InscripcionData {
                 MateriaData matD = new MateriaData(conexion);
                 ins.setIdInscripcion(rs.getInt("idInscripcion"));
                 ins.setIdAlumno(aluD.buscarAlumno(rs.getInt("idAlumno")));
-                ins.setIdMateria(matD.buscarMaeria(rs.getInt("idMateria")));
+                ins.setIdMateria(matD.buscarMateria(rs.getInt("idMateria")));
                 ins.setNota(rs.getFloat("nota"));
                 inscripciones.add(ins);
             }
@@ -109,6 +110,7 @@ public class InscripcionData {
             ps.setInt(1, ins.getIdAlumno().getIdAlumno());
             ps.setInt(2, ins.getIdMateria().getIdMateria());
             ps.setFloat(3, ins.getNota());
+            ps.setInt(4, ins.getIdInscripcion());
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "La Inscricpion fue actualizada");
         } catch (SQLException ex) {
@@ -137,19 +139,15 @@ public class InscripcionData {
         conexion.conectar();
         //-------
         ArrayList<Materia> materias = new ArrayList<>();
+        MateriaData matd = new MateriaData(conexion);
         Materia mat = null;
-        String sql = "SELECT * FROM `inscripcion`";
+        String sql = "SELECT * FROM `inscripcion` where idAlumno = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, al.getIdAlumno());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                mat = new Materia();
-              //  AlumnoData aluD = new AlumnoData(conexion);
-              //  MateriaData matD = new MateriaData(conexion);
-              //  ins.setIdInscripcion(rs.getInt("idInscripcion"));
-              //  ins.setIdAlumno(aluD.buscarAlumno(rs.getInt("idAlumno")));
-               // ins.setIdMateria(matD.buscarMaeria(rs.getInt("idMateria")));
-               // ins.setNota(rs.getFloat("nota"));
+                mat = matd.buscarMateria(rs.getInt("idMateria"));
                 materias.add(mat);
             }
         } catch (SQLException ex) {
@@ -162,21 +160,17 @@ public class InscripcionData {
         //BORRAR buscar otra forma de conectarse
         Conexion conexion = new Conexion("jdbc:mysql://localhost/universidad", "root", "");
         conexion.conectar();
+        MateriaData matd = new MateriaData(conexion);
         //-------
         ArrayList<Materia> materias = new ArrayList<>();
         Materia mat = null;
-        String sql = "SELECT * FROM `inscripcion`";
+                String sql = "SELECT * FROM `inscripcion` where idAlumno != ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, al.getIdAlumno());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                mat = new Materia();
-              //  AlumnoData aluD = new AlumnoData(conexion);
-              //  MateriaData matD = new MateriaData(conexion);
-              //  ins.setIdInscripcion(rs.getInt("idInscripcion"));
-              //  ins.setIdAlumno(aluD.buscarAlumno(rs.getInt("idAlumno")));
-               // ins.setIdMateria(matD.buscarMaeria(rs.getInt("idMateria")));
-               // ins.setNota(rs.getFloat("nota"));
+                mat = matd.buscarMateria(rs.getInt("idMateria"));
                 materias.add(mat);
             }
         } catch (SQLException ex) {
@@ -191,19 +185,15 @@ public class InscripcionData {
         conexion.conectar();
         //-------
         ArrayList<Alumno> alumnos = new ArrayList<>();
+        AlumnoData ald = new AlumnoData(conexion);
         Alumno al = null;
-        String sql = "SELECT * FROM `inscripcion`";
+        String sql = "SELECT * FROM `inscripcion` where idMateria = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, mat.getIdMateria());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                al = new Alumno();
-              //  AlumnoData aluD = new AlumnoData(conexion);
-              //  MateriaData matD = new MateriaData(conexion);
-              //  ins.setIdInscripcion(rs.getInt("idInscripcion"));
-              //  ins.setIdAlumno(aluD.buscarAlumno(rs.getInt("idAlumno")));
-               // ins.setIdMateria(matD.buscarMaeria(rs.getInt("idMateria")));
-               // ins.setNota(rs.getFloat("nota"));
+                al = ald.buscarAlumno(rs.getInt("idAlumno"));
                 alumnos.add(al);
             }
         } catch (SQLException ex) {
@@ -211,4 +201,6 @@ public class InscripcionData {
         }
         return alumnos;
     }
+
 }
+

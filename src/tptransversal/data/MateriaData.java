@@ -45,7 +45,7 @@ public class MateriaData {
         }
     }
 
-    public Materia buscarMaeria(int id) {
+    public Materia buscarMateria(int id) {
         Materia ma = null;
         String sql = "SELECT * FROM `materia` WHERE idMateria = ?";
         try {
@@ -108,8 +108,8 @@ public class MateriaData {
 
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setBoolean(3, ma.getEstado());
-            ps.setInt(4, ma.getIdMateria());
+            //ps.setBoolean(3, ma.getEstado());
+            ps.setInt(1, ma.getIdMateria());
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "La Materia fue suspendida");
         } catch (SQLException ex) {
