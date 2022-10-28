@@ -21,13 +21,11 @@ public class InscripcionData {
 
     }
 
-    
-    
     public void guardarInscripcion(Inscripcion ins) {
         String query = "INSERT INTO `inscripcion`(`idAlumno`, `idMateria`, `nota`) VALUES (?, ?, ?)";
-
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, ins.getIdAlumno().getIdAlumno());
             ps.setInt(2, ins.getIdMateria().getIdMateria());
             ps.setFloat(3, ins.getNota());
@@ -42,20 +40,26 @@ public class InscripcionData {
                 ins.setIdInscripcion(rs.getInt(1));
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo recuperar el ID de la inscripcion");
-                
+
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se pudo registrar la inscripcion");
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     public Inscripcion buscarInscripcion(int id) {  //(idalumno, idmateria)?
         Inscripcion ins = new Inscripcion();
         String sql = "SELECT * FROM `inscripcion` WHERE `idInscripcion` = ?";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -66,11 +70,17 @@ public class InscripcionData {
                 ins.setIdMateria(matD.buscarMateria(rs.getInt("idMateria")));
                 ins.setNota(rs.getFloat("nota"));
             }
-            ps.close();
+
         } catch (SQLException ex) {
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        
+
         return ins;
     }
 
@@ -78,9 +88,9 @@ public class InscripcionData {
         ArrayList<Inscripcion> inscripciones = new ArrayList<>();
         Inscripcion ins = null;
         String sql = "SELECT * FROM `inscripcion`";
-        
+PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ins = new Inscripcion();
@@ -94,15 +104,21 @@ public class InscripcionData {
             }
         } catch (SQLException ex) {
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return inscripciones;
     }
 
     public void actualizaInscripcion(Inscripcion ins) { //O actualizar nota?
         String query = "UPDATE `inscripcion` SET `idAlumno`=?,`idMateria`=?,`nota`=? WHERE `idInscripcion`=?";
-
+PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(query);
+            ps = con.prepareStatement(query);
             ps.setInt(1, ins.getIdAlumno().getIdAlumno());
             ps.setInt(2, ins.getIdMateria().getIdMateria());
             ps.setFloat(3, ins.getNota());
@@ -112,13 +128,20 @@ public class InscripcionData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "La Inscripcion NO fue actualizada");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     public void borrarInscripcion(int id) { //(idalumno, idmateria)?
         String sql = "DELETE FROM `inscripcion` WHERE idInscripcion = ?";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "La Inscripcion fue borrada");
@@ -126,16 +149,23 @@ public class InscripcionData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "La Inscripcion NO pudo ser borrada");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
-    
-    public ArrayList<Materia> obtenerMateriasInscriptas(Alumno al ) { //revisar metodo
+
+    public ArrayList<Materia> obtenerMateriasInscriptas(Alumno al) { //revisar metodo
         ArrayList<Materia> materias = new ArrayList<>();
         MateriaData matd = new MateriaData();
         Materia mat = null;
         String sql = "SELECT * FROM `inscripcion` where idAlumno = ?";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setInt(1, al.getIdAlumno());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -144,17 +174,24 @@ public class InscripcionData {
             }
         } catch (SQLException ex) {
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return materias;
     }
-    
-    public ArrayList<Materia> obtenerMateriasNoInscriptas(Alumno al ) { //revisar metodo
+
+    public ArrayList<Materia> obtenerMateriasNoInscriptas(Alumno al) { //revisar metodo
         MateriaData matd = new MateriaData();
         ArrayList<Materia> materias = new ArrayList<>();
         Materia mat = null;
-                String sql = "SELECT * FROM `inscripcion` where idAlumno != ?";
+        String sql = "SELECT * FROM `inscripcion` where idAlumno != ?";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setInt(1, al.getIdAlumno());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -163,17 +200,24 @@ public class InscripcionData {
             }
         } catch (SQLException ex) {
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return materias;
     }
-    
-    public ArrayList<Alumno> obtenerAlumnosInscriptos(Materia mat ) { //revisar metodo
+
+    public ArrayList<Alumno> obtenerAlumnosInscriptos(Materia mat) { //revisar metodo
         ArrayList<Alumno> alumnos = new ArrayList<>();
         AlumnoData ald = new AlumnoData();
         Alumno al = null;
         String sql = "SELECT * FROM `inscripcion` where idMateria = ?";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setInt(1, mat.getIdMateria());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -182,9 +226,14 @@ public class InscripcionData {
             }
         } catch (SQLException ex) {
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return alumnos;
     }
 
 }
-

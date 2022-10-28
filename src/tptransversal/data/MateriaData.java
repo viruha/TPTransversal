@@ -21,8 +21,9 @@ public class MateriaData {
 
     public void guardarMateria(Materia ma) {
         String query = "INSERT INTO `materia`(`nombreMateria`, `anio`, `estado`) VALUES (?,?,?)";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ma.getNombreMateria());
             ps.setString(2, ma.getAnio());
             ps.setBoolean(3, ma.getEstado());
@@ -41,14 +42,21 @@ public class MateriaData {
             }
         } catch (SQLException ex) {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     public Materia buscarMateria(int id) {
         Materia ma = null;
         String sql = "SELECT * FROM `materia` WHERE idMateria = ?";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -60,6 +68,12 @@ public class MateriaData {
             }
         } catch (SQLException ex) {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return ma;
     }
@@ -68,8 +82,9 @@ public class MateriaData {
         ArrayList<Materia> materias = new ArrayList<>();
         Materia ma = null;
         String sql = "SELECT * FROM `materia`";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ma = new Materia();
@@ -81,14 +96,21 @@ public class MateriaData {
             }
         } catch (SQLException ex) {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return materias;
     }
 
     public void actualizarMateria(Materia ma) {
         String query = "UPDATE `materia` SET `nombreMateria`=?,`anio`=?,`estado`=? WHERE `idMateria` = ?";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(query);
+            ps = con.prepareStatement(query);
             ps.setString(1, ma.getNombreMateria());
             ps.setString(2, ma.getAnio());
             ps.setBoolean(3, ma.getEstado());
@@ -98,6 +120,12 @@ public class MateriaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "La Materia fue NO fue actualizado");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -112,6 +140,12 @@ public class MateriaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "La Materia NO fue Suspendida");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

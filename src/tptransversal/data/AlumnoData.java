@@ -22,8 +22,9 @@ public class AlumnoData {
 
     public void guardarAlumno(Alumno al) {
         String query = "INSERT INTO `alumno`(`dni`, `nombre`, `apellido`, `fechaDeNacimiento`, `estado`) VALUES (?,?,?,?,?)";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, al.getDni());
             ps.setString(2, al.getNombre());
             ps.setString(3, al.getApellido());
@@ -40,18 +41,26 @@ public class AlumnoData {
                 al.setIdAlumno(rs.getInt(1));
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo recuperar el ID del alumno");
-                ps.close();
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
     }
 
     public Alumno buscarAlumno(int id) {
         Alumno al = null;
         String sql = "SELECT * FROM `alumno` WHERE idalumno = ?";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -65,6 +74,12 @@ public class AlumnoData {
             }
         } catch (SQLException ex) {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return al;
     }
@@ -73,8 +88,9 @@ public class AlumnoData {
         ArrayList<Alumno> alumnos = new ArrayList<>();
         Alumno al = null;
         String sql = "SELECT * FROM `alumno`";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 al = new Alumno();
@@ -88,14 +104,21 @@ public class AlumnoData {
             }
         } catch (SQLException ex) {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return alumnos;
     }
 
     public void actualizarAlumno(Alumno al) {
         String query = "UPDATE `alumno` SET `dni`=?,`nombre`=?,`apellido`=?,`fechaDeNacimiento`=?,`estado`=? WHERE `idAlumno` = ?";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(query);
+            ps = con.prepareStatement(query);
             ps.setInt(1, al.getDni());
             ps.setString(2, al.getNombre());
             ps.setString(3, al.getApellido());
@@ -107,19 +130,32 @@ public class AlumnoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "El alumno fue NO fue actualizado");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     public void borrarAlumno(Alumno al) {
         String query = "UPDATE alumno SET estado = 0 WHERE `idAlumno` = ?";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(query);
+            ps = con.prepareStatement(query);
             ps.setInt(1, al.getIdAlumno());
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "El alumno fue Suspendido");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "El alumno NO fue Suspendido");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

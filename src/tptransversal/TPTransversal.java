@@ -3,7 +3,6 @@ package tptransversal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import tptransversal.data.AlumnoData;
-import tptransversal.data.ConexionS;
 import tptransversal.data.InscripcionData;
 import tptransversal.data.MateriaData;
 import tptransversal.modelo.Alumno;
