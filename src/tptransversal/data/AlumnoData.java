@@ -14,10 +14,10 @@ import javax.swing.JOptionPane;
 
 public class AlumnoData {
 
-    private Connection con = null;
+    private Connection con = ConexionS.conectar();
 
-    public AlumnoData(Conexion con) {
-        this.con = con.conectar();
+    public AlumnoData() {
+        
     }
 
     public void guardarAlumno(Alumno al) {

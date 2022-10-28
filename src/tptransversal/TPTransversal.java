@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import tptransversal.data.AlumnoData;
 import tptransversal.data.Conexion;
+import tptransversal.data.ConexionS;
 import tptransversal.data.InscripcionData;
 import tptransversal.data.MateriaData;
 import tptransversal.modelo.Alumno;
@@ -13,11 +14,12 @@ import tptransversal.modelo.Materia;
 public class TPTransversal {
 
     public static void main(String[] args) {
-        Conexion conexion = new Conexion("jdbc:mysql://localhost/universidad", "root", "");
-        conexion.conectar();
-        AlumnoData alD = new AlumnoData(conexion);
-        MateriaData maD = new MateriaData(conexion);
-        InscripcionData insD = new InscripcionData(conexion);
+        //Conexion conexion = new Conexion("jdbc:mysql://localhost/universidad", "root", "");
+        //conexion.conectar();
+        //ConexionS.conectar();
+        AlumnoData alD = new AlumnoData();
+        MateriaData maD = new MateriaData();
+        InscripcionData insD = new InscripcionData();
 
         //GUARDAR ALUMNO
         //Alumno al = new Alumno(26694777, "Mauro", "Castro",LocalDate.of(1978,11,1) , true);
@@ -40,10 +42,10 @@ public class TPTransversal {
         //
         //-----------------------------------------------------------
         //LISTAR MATERIAS
-        // ArrayList<Materia> listaMaterias = maD.listarMaterias();
-        //for (Object ma : listaMaterias) {
-        //    System.out.println(ma);
-        //}
+         ArrayList<Materia> listaMaterias = maD.listarMaterias();
+        for (Object ma : listaMaterias) {
+            System.out.println(ma);
+        }
         //GUARDAR MATERIA
         // Materia mat = new Materia("EDA","Primero", true);
         // maD.guardarMateria(mat);

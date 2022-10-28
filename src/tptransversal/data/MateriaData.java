@@ -13,10 +13,10 @@ import tptransversal.modelo.Materia;
 
 public class MateriaData {
 
-    private Connection con = null;
+    private Connection con = ConexionS.conectar();
 
-    public MateriaData(Conexion con) {
-        this.con = con.conectar();
+    public MateriaData() {
+       
     }
 
     public void guardarMateria(Materia ma) {

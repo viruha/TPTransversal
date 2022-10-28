@@ -15,10 +15,10 @@ import tptransversal.modelo.Materia;
 
 public class InscripcionData {
 
-    private Connection con = null;
+    private Connection con = ConexionS.conectar();
 
-    public InscripcionData(Conexion con) {
-        this.con = con.conectar();
+    public InscripcionData() {
+
     }
 
     
@@ -62,8 +62,8 @@ public class InscripcionData {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                AlumnoData aluD = new AlumnoData(conexion);
-                MateriaData matD = new MateriaData(conexion);
+                AlumnoData aluD = new AlumnoData();
+                MateriaData matD = new MateriaData();
                 ins.setIdInscripcion(rs.getInt("idInscripcion"));
                 ins.setIdAlumno(aluD.buscarAlumno(rs.getInt("idAlumno")));
                 ins.setIdMateria(matD.buscarMateria(rs.getInt("idMateria")));
@@ -88,8 +88,8 @@ public class InscripcionData {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ins = new Inscripcion();
-                AlumnoData aluD = new AlumnoData(conexion);
-                MateriaData matD = new MateriaData(conexion);
+                AlumnoData aluD = new AlumnoData();
+                MateriaData matD = new MateriaData();
                 ins.setIdInscripcion(rs.getInt("idInscripcion"));
                 ins.setIdAlumno(aluD.buscarAlumno(rs.getInt("idAlumno")));
                 ins.setIdMateria(matD.buscarMateria(rs.getInt("idMateria")));
@@ -139,7 +139,7 @@ public class InscripcionData {
         conexion.conectar();
         //-------
         ArrayList<Materia> materias = new ArrayList<>();
-        MateriaData matd = new MateriaData(conexion);
+        MateriaData matd = new MateriaData();
         Materia mat = null;
         String sql = "SELECT * FROM `inscripcion` where idAlumno = ?";
         try {
@@ -160,7 +160,7 @@ public class InscripcionData {
         //BORRAR buscar otra forma de conectarse
         Conexion conexion = new Conexion("jdbc:mysql://localhost/universidad", "root", "");
         conexion.conectar();
-        MateriaData matd = new MateriaData(conexion);
+        MateriaData matd = new MateriaData();
         //-------
         ArrayList<Materia> materias = new ArrayList<>();
         Materia mat = null;
@@ -185,7 +185,7 @@ public class InscripcionData {
         conexion.conectar();
         //-------
         ArrayList<Alumno> alumnos = new ArrayList<>();
-        AlumnoData ald = new AlumnoData(conexion);
+        AlumnoData ald = new AlumnoData();
         Alumno al = null;
         String sql = "SELECT * FROM `inscripcion` where idMateria = ?";
         try {
