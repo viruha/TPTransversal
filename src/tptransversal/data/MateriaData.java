@@ -16,12 +16,11 @@ public class MateriaData {
     private Connection con = ConexionS.conectar();
 
     public MateriaData() {
-       
+
     }
 
     public void guardarMateria(Materia ma) {
         String query = "INSERT INTO `materia`(`nombreMateria`, `anio`, `estado`) VALUES (?,?,?)";
-
         try {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ma.getNombreMateria());
@@ -88,7 +87,6 @@ public class MateriaData {
 
     public void actualizarMateria(Materia ma) {
         String query = "UPDATE `materia` SET `nombreMateria`=?,`anio`=?,`estado`=? WHERE `idMateria` = ?";
-
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, ma.getNombreMateria());
@@ -105,10 +103,9 @@ public class MateriaData {
 
     public void borrarMateria(Materia ma) {
         String query = "UPDATE `materia` SET `estado`= 0 WHERE `idMateria` = ?";
-
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = con.prepareStatement(query);
-            //ps.setBoolean(3, ma.getEstado());
+            ps = con.prepareStatement(query);
             ps.setInt(1, ma.getIdMateria());
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "La Materia fue suspendida");
@@ -116,18 +113,5 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null, "La Materia NO fue Suspendida");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        /*utiliza int id como parametro
-        String sql = "DELETE FROM `materia` WHERE idMateria = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "La materia fue borrada");
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "La materia NO pudo ser borrada");
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-*/
     }
 }

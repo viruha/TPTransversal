@@ -42,8 +42,9 @@ public class InscripcionData {
                 ins.setIdInscripcion(rs.getInt(1));
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo recuperar el ID de la inscripcion");
-                ps.close();
+                
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se pudo registrar la inscripcion");
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,10 +52,6 @@ public class InscripcionData {
     }
 
     public Inscripcion buscarInscripcion(int id) {  //(idalumno, idmateria)?
-        //BORRAR buscar otra forma de conectarse
-        Conexion conexion = new Conexion("jdbc:mysql://localhost/universidad", "root", "");
-        conexion.conectar();
-        //-------
         Inscripcion ins = new Inscripcion();
         String sql = "SELECT * FROM `inscripcion` WHERE `idInscripcion` = ?";
         try {
@@ -69,20 +66,19 @@ public class InscripcionData {
                 ins.setIdMateria(matD.buscarMateria(rs.getInt("idMateria")));
                 ins.setNota(rs.getFloat("nota"));
             }
+            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return ins;
     }
 
     public ArrayList<Inscripcion> listarInscripcion() { //queda
-        //BORRAR buscar otra forma de conectarse
-        Conexion conexion = new Conexion("jdbc:mysql://localhost/universidad", "root", "");
-        conexion.conectar();
-        //-------
         ArrayList<Inscripcion> inscripciones = new ArrayList<>();
         Inscripcion ins = null;
         String sql = "SELECT * FROM `inscripcion`";
+        
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -134,10 +130,6 @@ public class InscripcionData {
     }
     
     public ArrayList<Materia> obtenerMateriasInscriptas(Alumno al ) { //revisar metodo
-        //BORRAR buscar otra forma de conectarse
-        Conexion conexion = new Conexion("jdbc:mysql://localhost/universidad", "root", "");
-        conexion.conectar();
-        //-------
         ArrayList<Materia> materias = new ArrayList<>();
         MateriaData matd = new MateriaData();
         Materia mat = null;
@@ -157,11 +149,7 @@ public class InscripcionData {
     }
     
     public ArrayList<Materia> obtenerMateriasNoInscriptas(Alumno al ) { //revisar metodo
-        //BORRAR buscar otra forma de conectarse
-        Conexion conexion = new Conexion("jdbc:mysql://localhost/universidad", "root", "");
-        conexion.conectar();
         MateriaData matd = new MateriaData();
-        //-------
         ArrayList<Materia> materias = new ArrayList<>();
         Materia mat = null;
                 String sql = "SELECT * FROM `inscripcion` where idAlumno != ?";
@@ -180,10 +168,6 @@ public class InscripcionData {
     }
     
     public ArrayList<Alumno> obtenerAlumnosInscriptos(Materia mat ) { //revisar metodo
-        //BORRAR buscar otra forma de conectarse
-        Conexion conexion = new Conexion("jdbc:mysql://localhost/universidad", "root", "");
-        conexion.conectar();
-        //-------
         ArrayList<Alumno> alumnos = new ArrayList<>();
         AlumnoData ald = new AlumnoData();
         Alumno al = null;

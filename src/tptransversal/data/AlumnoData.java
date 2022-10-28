@@ -22,7 +22,6 @@ public class AlumnoData {
 
     public void guardarAlumno(Alumno al) {
         String query = "INSERT INTO `alumno`(`dni`, `nombre`, `apellido`, `fechaDeNacimiento`, `estado`) VALUES (?,?,?,?,?)";
-
         try {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, al.getDni());
@@ -95,7 +94,6 @@ public class AlumnoData {
 
     public void actualizarAlumno(Alumno al) {
         String query = "UPDATE `alumno` SET `dni`=?,`nombre`=?,`apellido`=?,`fechaDeNacimiento`=?,`estado`=? WHERE `idAlumno` = ?";
-
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, al.getDni());
@@ -114,10 +112,8 @@ public class AlumnoData {
 
     public void borrarAlumno(Alumno al) {
         String query = "UPDATE alumno SET estado = 0 WHERE `idAlumno` = ?";
-
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            //ps.setBoolean(5, al.getEstado());
             ps.setInt(1, al.getIdAlumno());
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "El alumno fue Suspendido");
@@ -125,16 +121,5 @@ public class AlumnoData {
             JOptionPane.showMessageDialog(null, "El alumno NO fue Suspendido");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        /* usa int id como parametro
-        String sql = "DELETE FROM `alumno` WHERE idalumno = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "El alumno fue borrado");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "El alumno NO pudo ser borrado");
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
     }
 }
