@@ -81,6 +81,11 @@ public class TPTransversalView extends javax.swing.JFrame {
         jMAlumnos.setText("Alumnos");
 
         jMFormularioAlumnos.setText("Formulario de alumnos");
+        jMFormularioAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMFormularioAlumnosActionPerformed(evt);
+            }
+        });
         jMAlumnos.add(jMFormularioAlumnos);
 
         jMenuBar1.add(jMAlumnos);
@@ -132,8 +137,17 @@ public class TPTransversalView extends javax.swing.JFrame {
         MateriasView Materias_view = new MateriasView();
         Materias_view.setVisible(true);
         jDP.add(Materias_view);
-        jDP.moveToFront(Materias_view);        // TODO add your handling code here:
+        jDP.moveToFront(Materias_view); 
     }//GEN-LAST:event_jMFormularioMateriasActionPerformed
+
+    private void jMFormularioAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFormularioAlumnosActionPerformed
+        jDP.removeAll();
+        jDP.repaint();
+        AlumnoView Alumno_view = new AlumnoView();
+        Alumno_view.setVisible(true);
+        jDP.add(Alumno_view);
+        jDP.moveToFront(Alumno_view); 
+    }//GEN-LAST:event_jMFormularioAlumnosActionPerformed
 
     /**
      * @param args the command line arguments
