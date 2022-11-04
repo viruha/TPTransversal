@@ -93,6 +93,11 @@ public class TPTransversalView extends javax.swing.JFrame {
         jMInscripciones.setText("Inscripciones");
 
         jMManejoInscripciones.setText("Manejo de inscripciones");
+        jMManejoInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMManejoInscripcionesActionPerformed(evt);
+            }
+        });
         jMInscripciones.add(jMManejoInscripciones);
 
         jMenuBar1.add(jMInscripciones);
@@ -100,6 +105,11 @@ public class TPTransversalView extends javax.swing.JFrame {
         jMCargaNotas.setText("Carga de notas");
 
         jMManipulacionNotas.setText("Manipulación de notas");
+        jMManipulacionNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMManipulacionNotasActionPerformed(evt);
+            }
+        });
         jMCargaNotas.add(jMManipulacionNotas);
 
         jMenuBar1.add(jMCargaNotas);
@@ -148,6 +158,24 @@ public class TPTransversalView extends javax.swing.JFrame {
         jDP.add(Alumno_view);
         jDP.moveToFront(Alumno_view); 
     }//GEN-LAST:event_jMFormularioAlumnosActionPerformed
+
+    private void jMManejoInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMManejoInscripcionesActionPerformed
+        jDP.removeAll();
+        jDP.repaint();
+        InscripcionView Inscripcion_view = new InscripcionView();
+        Inscripcion_view.setVisible(true);
+        jDP.add(Inscripcion_view);
+        jDP.moveToFront(Inscripcion_view); 
+    }//GEN-LAST:event_jMManejoInscripcionesActionPerformed
+
+    private void jMManipulacionNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMManipulacionNotasActionPerformed
+        jDP.removeAll();
+        jDP.repaint();
+        CargaNotasView notas_view = new CargaNotasView();
+        notas_view.setVisible(true);
+        jDP.add(notas_view);
+        jDP.moveToFront(notas_view); 
+    }//GEN-LAST:event_jMManipulacionNotasActionPerformed
 
     /**
      * @param args the command line arguments

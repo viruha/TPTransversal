@@ -223,6 +223,7 @@ public class AlumnoView extends javax.swing.JInternalFrame {
             alu.setNombre(jTFNombre.getText());
             alu.setEstado(jCBEstado.isSelected());
             alu.setApellido(jTFApellido.getText());
+            alu.setDni(Integer.parseInt(jTFDni.getText()));
             alu.setFechaDeNacimiento(LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(JDCFechaNacimiento.getDate())));
             alu.setIdAlumno(alD.guardarAlumno(alu)); //guarda Alumno
             jTFCodigo.setText(String.valueOf(alu.getIdAlumno()));
@@ -237,24 +238,28 @@ public class AlumnoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
-/*        if (jTFNombre.getText().length() > 0 || jTFAnio.getText().length() > 0) {
-            mat.setNombreMateria(jTFNombre.getText());
-            mat.setAnio(jTFAnio.getText());
-            mat.setEstado(jCBEstado.isSelected());
+         if (jTFNombre.getText().length() > 0 || jTFApellido.getText().length() > 0) {
+            alu = new Alumno();
+            alu.setIdAlumno(Integer.parseInt(jTFCodigo.getText()));
+            alu.setNombre(jTFNombre.getText());
+            alu.setEstado(jCBEstado.isSelected());
+            alu.setApellido(jTFApellido.getText());
+            alu.setDni(Integer.parseInt(jTFDni.getText()));
+            alu.setFechaDeNacimiento(LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(JDCFechaNacimiento.getDate())));
             jBGuardar.setEnabled(false);
             jBBuscar.setEnabled(false);
             jBActualizar.setEnabled(true);
             jBBorrar.setEnabled(true);
             jTFCodigo.setEnabled(false);
-            maD.actualizarMateria(mat);
+            alD.actualizarAlumno(alu);
         }else{
             JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
         }
-*/
+
     }//GEN-LAST:event_jBActualizarActionPerformed
 
     private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
-  /*      mat = null;
+        alu = null;
         jBGuardar.setEnabled(true);
         jBBuscar.setEnabled(true);
         jBActualizar.setEnabled(false);
@@ -263,7 +268,8 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         jTFCodigo.setEnabled(true);
         jTFNombre.setText("");
         jTFCodigo.setText("");
-*/
+        jTFApellido.setText("");
+        jTFDni.setText("");
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
 

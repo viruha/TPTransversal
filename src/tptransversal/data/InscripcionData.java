@@ -73,7 +73,38 @@ public class InscripcionData {
 
         } catch (SQLException ex) {
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return ins;
+    }
+
+    public Inscripcion buscarInscripcionAluMAt(Alumno alumno, Materia materia) {  //(idalumno, idmateria)?
+        Inscripcion ins = new Inscripcion();
+        String sql = "SELECT * FROM inscripcion WHERE idAlumno = ? and idMateria = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, alumno.getIdAlumno());
+            ps.setInt(2, materia.getIdMateria());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                AlumnoData aluD = new AlumnoData();
+                MateriaData matD = new MateriaData();
+                ins.setIdInscripcion(rs.getInt("idInscripcion"));
+                ins.setIdAlumno(aluD.buscarAlumno(rs.getInt("idAlumno")));
+                ins.setIdMateria(matD.buscarMateria(rs.getInt("idMateria")));
+                ins.setNota(rs.getFloat("nota"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             try {
                 ps.close();
             } catch (SQLException ex) {
@@ -88,7 +119,7 @@ public class InscripcionData {
         ArrayList<Inscripcion> inscripciones = new ArrayList<>();
         Inscripcion ins = null;
         String sql = "SELECT * FROM `inscripcion`";
-PreparedStatement ps = null;
+        PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -104,7 +135,38 @@ PreparedStatement ps = null;
             }
         } catch (SQLException ex) {
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return inscripciones;
+    }
+    
+        public ArrayList<Inscripcion> listarInscripcionAlu(Alumno alumno) { //queda
+        ArrayList<Inscripcion> inscripciones = new ArrayList<>();
+        Inscripcion ins = null;
+        String sql = "SELECT * FROM `inscripcion` where idalumno = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, alumno.getIdAlumno());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ins = new Inscripcion();
+                AlumnoData aluD = new AlumnoData();
+                MateriaData matD = new MateriaData();
+                ins.setIdInscripcion(rs.getInt("idInscripcion"));
+                ins.setIdAlumno(aluD.buscarAlumno(rs.getInt("idAlumno")));
+                ins.setIdMateria(matD.buscarMateria(rs.getInt("idMateria")));
+                ins.setNota(rs.getFloat("nota"));
+                inscripciones.add(ins);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             try {
                 ps.close();
             } catch (SQLException ex) {
@@ -116,7 +178,7 @@ PreparedStatement ps = null;
 
     public void actualizaInscripcion(Inscripcion ins) { //O actualizar nota?
         String query = "UPDATE `inscripcion` SET `idAlumno`=?,`idMateria`=?,`nota`=? WHERE `idInscripcion`=?";
-PreparedStatement ps = null;
+        PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(query);
             ps.setInt(1, ins.getIdAlumno().getIdAlumno());
@@ -128,7 +190,7 @@ PreparedStatement ps = null;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "La Inscripcion NO fue actualizada");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             try {
                 ps.close();
             } catch (SQLException ex) {
@@ -149,7 +211,7 @@ PreparedStatement ps = null;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "La Inscripcion NO pudo ser borrada");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             try {
                 ps.close();
             } catch (SQLException ex) {
@@ -174,7 +236,7 @@ PreparedStatement ps = null;
             }
         } catch (SQLException ex) {
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             try {
                 ps.close();
             } catch (SQLException ex) {
@@ -188,7 +250,8 @@ PreparedStatement ps = null;
         MateriaData matd = new MateriaData();
         ArrayList<Materia> materias = new ArrayList<>();
         Materia mat = null;
-        String sql = "SELECT * FROM `inscripcion` where idAlumno != ?";
+        String sql = "select materia.idmateria from materia where materia.idMateria not in (select idMateria from inscripcion where idalumno = ?);";
+
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -200,7 +263,7 @@ PreparedStatement ps = null;
             }
         } catch (SQLException ex) {
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             try {
                 ps.close();
             } catch (SQLException ex) {
@@ -226,7 +289,7 @@ PreparedStatement ps = null;
             }
         } catch (SQLException ex) {
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             try {
                 ps.close();
             } catch (SQLException ex) {

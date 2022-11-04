@@ -116,7 +116,7 @@ public class AlumnoData {
     }
 
     public void actualizarAlumno(Alumno al) {
-        String query = "UPDATE `alumno` SET `dni`=?,`nombre`=?,`apellido`=?,`fechaDeNacimiento`=?,`estado`=? WHERE `idAlumno` = ?";
+        String query = "UPDATE alumno SET dni = ?, nombre = ?, apellido = ?, fechaDeNacimiento = ?, estado= ? WHERE idAlumno = ? ";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(query);
