@@ -144,8 +144,8 @@ public class InscripcionData {
         }
         return inscripciones;
     }
-    
-        public ArrayList<Inscripcion> listarInscripcionAlu(Alumno alumno) { //queda
+
+    public ArrayList<Inscripcion> listarInscripcionAlu(Alumno alumno) { //queda
         ArrayList<Inscripcion> inscripciones = new ArrayList<>();
         Inscripcion ins = null;
         String sql = "SELECT * FROM `inscripcion` where idalumno = ?";
@@ -153,6 +153,37 @@ public class InscripcionData {
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, alumno.getIdAlumno());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ins = new Inscripcion();
+                AlumnoData aluD = new AlumnoData();
+                MateriaData matD = new MateriaData();
+                ins.setIdInscripcion(rs.getInt("idInscripcion"));
+                ins.setIdAlumno(aluD.buscarAlumno(rs.getInt("idAlumno")));
+                ins.setIdMateria(matD.buscarMateria(rs.getInt("idMateria")));
+                ins.setNota(rs.getFloat("nota"));
+                inscripciones.add(ins);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return inscripciones;
+    }
+
+    public ArrayList<Inscripcion> listarInscripcionMat(Materia materia) { //queda
+        ArrayList<Inscripcion> inscripciones = new ArrayList<>();
+        Inscripcion ins = null;
+        String sql = "SELECT * FROM `inscripcion` where idmateria = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, materia.getIdMateria());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ins = new Inscripcion();

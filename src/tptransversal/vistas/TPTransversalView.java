@@ -117,6 +117,11 @@ public class TPTransversalView extends javax.swing.JFrame {
         jMConsultas.setText("Consultas");
 
         jMListadoAlumnosXMateria.setText("Listado de alumnos x materia");
+        jMListadoAlumnosXMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMListadoAlumnosXMateriaActionPerformed(evt);
+            }
+        });
         jMConsultas.add(jMListadoAlumnosXMateria);
 
         jMenuBar1.add(jMConsultas);
@@ -176,6 +181,15 @@ public class TPTransversalView extends javax.swing.JFrame {
         jDP.add(notas_view);
         jDP.moveToFront(notas_view); 
     }//GEN-LAST:event_jMManipulacionNotasActionPerformed
+
+    private void jMListadoAlumnosXMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListadoAlumnosXMateriaActionPerformed
+        jDP.removeAll();
+        jDP.repaint();
+        AlumnosMateriasView alMa_view = new AlumnosMateriasView();
+        alMa_view.setVisible(true);
+        jDP.add(alMa_view);
+        jDP.moveToFront(alMa_view); 
+    }//GEN-LAST:event_jMListadoAlumnosXMateriaActionPerformed
 
     /**
      * @param args the command line arguments
