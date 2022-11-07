@@ -77,6 +77,11 @@ public class InscripcionView extends javax.swing.JInternalFrame {
         });
 
         jBSalir.setText("Salir");
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalirActionPerformed(evt);
+            }
+        });
 
         jBDesinscribir.setText("Anular inscirpción");
         jBDesinscribir.setEnabled(false);
@@ -211,6 +216,10 @@ public class InscripcionView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una materia de la lista");
         }
     }//GEN-LAST:event_jBDesinscribirActionPerformed
+
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jBSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
