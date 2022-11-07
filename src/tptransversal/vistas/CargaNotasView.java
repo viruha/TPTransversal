@@ -75,6 +75,11 @@ public class CargaNotasView extends javax.swing.JInternalFrame {
         });
 
         jBCancelar.setText("Cancelar");
+        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Alumno");
 
@@ -98,7 +103,7 @@ public class CargaNotasView extends javax.swing.JInternalFrame {
                                 .addGap(142, 142, 142)
                                 .addComponent(jLabel1))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
+                        .addGap(154, 154, 154)
                         .addComponent(jBGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(jBCancelar)))
@@ -144,6 +149,10 @@ public class CargaNotasView extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_jBGuardarActionPerformed
+
+    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
+       jCBAlumnosActionPerformed(evt);
+    }//GEN-LAST:event_jBCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -12,7 +12,7 @@ import tptransversal.modelo.Alumno;
 public class AlumnoView extends javax.swing.JInternalFrame {
 
     private Alumno alu = null;
-    AlumnoData alD = new AlumnoData();
+    private AlumnoData alD = new AlumnoData();
 
     public AlumnoView() {
         initComponents();
@@ -93,6 +93,8 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         jLabel5.setText("Apellido");
 
         jLabel6.setText("Dni");
+
+        JDCFechaNacimiento.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -234,7 +236,7 @@ public class AlumnoView extends javax.swing.JInternalFrame {
             alu.setApellido(jTFApellido.getText());
             alu.setDni(Integer.parseInt(jTFDni.getText()));
             alu.setFechaDeNacimiento(LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(JDCFechaNacimiento.getDate())));
-            alu.setIdAlumno(alD.guardarAlumno(alu)); //guarda Alumno
+            alD.guardarAlumno(alu); //guarda Alumno
             jTFCodigo.setText(String.valueOf(alu.getIdAlumno()));
             jBGuardar.setEnabled(false);
             jBBuscar.setEnabled(false);

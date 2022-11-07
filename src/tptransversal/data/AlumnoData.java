@@ -20,7 +20,7 @@ public class AlumnoData {
         
     }
 
-    public int guardarAlumno(Alumno al) {
+    public void guardarAlumno(Alumno al) {
         String query = "INSERT INTO `alumno`(`dni`, `nombre`, `apellido`, `fechaDeNacimiento`, `estado`) VALUES (?,?,?,?,?)";
         PreparedStatement ps = null;
         try {
@@ -39,7 +39,7 @@ public class AlumnoData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 al.setIdAlumno(rs.getInt(1));
-                return al.getIdAlumno();
+                
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo recuperar el ID del alumno");
                 
@@ -53,7 +53,7 @@ public class AlumnoData {
                 Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return 0;
+       
     }
 
     public Alumno buscarAlumno(int id) {

@@ -19,7 +19,7 @@ public class MateriaData {
 
     }
 
-    public int guardarMateria(Materia ma) {
+    public void guardarMateria(Materia ma) {
         String query = "INSERT INTO `materia`(`nombreMateria`, `anio`, `estado`) VALUES (?,?,?)";
         PreparedStatement ps = null;
         try {
@@ -36,7 +36,7 @@ public class MateriaData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 ma.setIdMateria(rs.getInt(1));
-                return ma.getIdMateria();
+               
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo recuperar el ID de la materia");
             }
@@ -50,7 +50,7 @@ public class MateriaData {
                 Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return 0;
+        
     }
 
     public Materia buscarMateria(int id) {

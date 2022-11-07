@@ -196,7 +196,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
             mat.setNombreMateria(jTFNombre.getText());
             mat.setAnio(jTFAnio.getText());
             mat.setEstado(jCBEstado.isSelected());
-            mat.setIdMateria(maD.guardarMateria(mat)); //guarda materia
+            maD.guardarMateria(mat); //guarda materia
             jTFCodigo.setText(String.valueOf(mat.getIdMateria()));
             jBGuardar.setEnabled(false);
             jBBuscar.setEnabled(false);

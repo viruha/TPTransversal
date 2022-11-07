@@ -207,7 +207,7 @@ public class TPTransversalView extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        IntelliJTheme.setup(TPTransversalView.class.getResourceAsStream("/librerias/Atom One Dark Contrast.theme.json"));
+        IntelliJTheme.setup(TPTransversalView.class.getResourceAsStream("/librerias/Atom One Light Contrast.theme.json"));
         javax.swing.UIManager.put( "Component.focusWidth", 0 );
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
