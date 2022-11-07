@@ -83,7 +83,7 @@ public class MateriaData {
     public ArrayList<Materia> listarMaterias() {
         ArrayList<Materia> materias = new ArrayList<>();
         Materia ma = null;
-        String sql = "SELECT * FROM `materia`";
+        String sql = "SELECT * FROM `materia` where estado = 1";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);

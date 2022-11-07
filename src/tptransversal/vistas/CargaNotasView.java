@@ -1,7 +1,7 @@
-
 package tptransversal.vistas;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import tptransversal.data.AlumnoData;
 import tptransversal.data.InscripcionData;
@@ -16,11 +16,11 @@ public class CargaNotasView extends javax.swing.JInternalFrame {
     private ArrayList<Alumno> listaAlumno;
     private InscripcionData insD;
     private DefaultTableModel dtmInscripcion;
-    
+
     public CargaNotasView() {
         dtmInscripcion = new DefaultTableModel(new String[]{"Inscripcion", "Materia", "Nota"}, 0);
         initComponents();
-         alD = new AlumnoData();
+        alD = new AlumnoData();
         insD = new InscripcionData();
         maD = new MateriaData();
         listaAlumno = alD.listarAlumnos();
@@ -42,6 +42,8 @@ public class CargaNotasView extends javax.swing.JInternalFrame {
         jBGuardar = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+
+        setClosable(true);
 
         jCBAlumnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,24 +83,25 @@ public class CargaNotasView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)
-                        .addGap(46, 46, 46)
-                        .addComponent(jCBAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(130, 130, 130)
-                            .addComponent(jBGuardar)
-                            .addGap(48, 48, 48)
-                            .addComponent(jBCancelar))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(142, 142, 142)
-                            .addComponent(jLabel1))))
+                            .addComponent(jLabel2)
+                            .addGap(18, 18, 18)
+                            .addComponent(jCBAlumnos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(142, 142, 142)
+                                .addComponent(jLabel1))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(jBGuardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBCancelar)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -110,30 +113,36 @@ public class CargaNotasView extends javax.swing.JInternalFrame {
                     .addComponent(jCBAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBGuardar)
                     .addComponent(jBCancelar))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCBAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBAlumnosActionPerformed
-        ArrayList<Inscripcion> listaInscripcion = insD.listarInscripcionAlu((Alumno)jCBAlumnos.getSelectedItem());
+        ArrayList<Inscripcion> listaInscripcion = insD.listarInscripcionAlu((Alumno) jCBAlumnos.getSelectedItem());
         dtmInscripcion.setNumRows(0);
         for (Inscripcion inscripcion : listaInscripcion) {
             dtmInscripcion.addRow(new Object[]{inscripcion.getIdInscripcion(), inscripcion.getIdMateria().getNombreMateria(), inscripcion.getNota()});
         }
-        
+
     }//GEN-LAST:event_jCBAlumnosActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        Inscripcion ins = insD.buscarInscripcion((Integer)dtmInscripcion.getValueAt(jTInscripcion.getSelectedRow(),0));
-        ins.setNota(Float.parseFloat(dtmInscripcion.getValueAt(jTInscripcion.getSelectedRow(),2).toString().trim()));
-        insD.actualizaInscripcion(ins);
+        if (jTInscripcion.getSelectedRow() != -1) {
+            Inscripcion ins = insD.buscarInscripcion((Integer) dtmInscripcion.getValueAt(jTInscripcion.getSelectedRow(), 0));
+            ins.setNota(Float.parseFloat(dtmInscripcion.getValueAt(jTInscripcion.getSelectedRow(), 2).toString().trim()));
+            insD.actualizaInscripcion(ins);
+        } else {
+        JOptionPane.showMessageDialog(this, "Debe tener seleccionada la fila de la materia que cambio la nota");
+        }
+
+
     }//GEN-LAST:event_jBGuardarActionPerformed
 
 

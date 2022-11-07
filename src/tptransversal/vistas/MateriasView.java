@@ -36,6 +36,8 @@ public class MateriasView extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
+        setClosable(true);
+
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setText("MATERIAS");
 
@@ -166,7 +168,11 @@ public class MateriasView extends javax.swing.JInternalFrame {
             jBBorrar.setEnabled(true);
             jTFCodigo.setEnabled(false);
         } catch (NumberFormatException | NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "El dato ingresado no es valido o no existe");
+            JOptionPane.showMessageDialog(this, "El dato ingresado no es valido o no existe");
+            jTFCodigo.setText("");
+            jTFNombre.setText("");
+            jTFAnio.setText("");
+            jCBEstado.setSelected(false);
         }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
@@ -180,12 +186,12 @@ public class MateriasView extends javax.swing.JInternalFrame {
             jTFCodigo.setEnabled(false);
             jCBEstado.setSelected(false);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "El dato ingresado no es valido o no existe");
+            JOptionPane.showMessageDialog(this, "El dato ingresado no es valido o no existe");
         }
     }//GEN-LAST:event_jBBorrarActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        if (jTFNombre.getText().length() > 0 || jTFAnio.getText().length() > 0) {
+        if (jTFNombre.getText().length() > 0 && jTFAnio.getText().length() > 0) {
             mat = new Materia();
             mat.setNombreMateria(jTFNombre.getText());
             mat.setAnio(jTFAnio.getText());
@@ -198,12 +204,12 @@ public class MateriasView extends javax.swing.JInternalFrame {
             jBBorrar.setEnabled(true);
             jTFCodigo.setEnabled(false);
         }else{
-            JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
+            JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacios");
         }
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
-        if (jTFNombre.getText().length() > 0 || jTFAnio.getText().length() > 0) {
+        if (jTFNombre.getText().length() > 0 && jTFAnio.getText().length() > 0) {
             mat.setNombreMateria(jTFNombre.getText());
             mat.setAnio(jTFAnio.getText());
             mat.setEstado(jCBEstado.isSelected());
@@ -214,7 +220,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
             jTFCodigo.setEnabled(false);
             maD.actualizarMateria(mat);
         }else{
-            JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
+            JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacios");
         }
     }//GEN-LAST:event_jBActualizarActionPerformed
 

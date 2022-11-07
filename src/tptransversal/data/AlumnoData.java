@@ -88,7 +88,7 @@ public class AlumnoData {
     public ArrayList<Alumno> listarAlumnos() {
         ArrayList<Alumno> alumnos = new ArrayList<>();
         Alumno al = null;
-        String sql = "SELECT * FROM `alumno`";
+        String sql = "SELECT * FROM alumno WHERE estado = 1";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);

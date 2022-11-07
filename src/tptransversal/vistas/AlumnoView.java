@@ -42,6 +42,8 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         jTFDni = new javax.swing.JTextField();
         JDCFechaNacimiento = new com.toedter.calendar.JDateChooser();
 
+        setClosable(true);
+
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setText("ALUMNO");
 
@@ -179,7 +181,7 @@ public class AlumnoView extends javax.swing.JInternalFrame {
                     .addComponent(jBBorrar)
                     .addComponent(jBActualizar)
                     .addComponent(jBLimpiar))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -199,7 +201,14 @@ public class AlumnoView extends javax.swing.JInternalFrame {
             jBBorrar.setEnabled(true);
             jTFCodigo.setEnabled(false);
         } catch (NumberFormatException | NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "El dato ingresado no es valido o no existe");
+            JOptionPane.showMessageDialog(this, "El dato ingresado no es valido o no existe");
+            jTFCodigo.setText("");
+            jTFNombre.setText("");
+            jCBEstado.setSelected(false);
+            jTFApellido.setText("");
+            jTFDni.setText("");
+            JDCFechaNacimiento.setCalendar(null);
+
         }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
@@ -213,12 +222,12 @@ public class AlumnoView extends javax.swing.JInternalFrame {
             jTFCodigo.setEnabled(false);
             jCBEstado.setSelected(false);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "El dato ingresado no es valido o no existe");
+            JOptionPane.showMessageDialog(this, "El dato ingresado no es valido o no existe");
         }
     }//GEN-LAST:event_jBBorrarActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        if (jTFNombre.getText().length() > 0 || jTFApellido.getText().length() > 0) {
+        if (jTFNombre.getText().length() > 0 && jTFApellido.getText().length() > 0 && JDCFechaNacimiento.getDate() != null) {
             alu = new Alumno();
             alu.setNombre(jTFNombre.getText());
             alu.setEstado(jCBEstado.isSelected());
@@ -233,12 +242,12 @@ public class AlumnoView extends javax.swing.JInternalFrame {
             jBBorrar.setEnabled(true);
             jTFCodigo.setEnabled(false);
         }else{
-            JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
+            JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacios");
         }
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
-         if (jTFNombre.getText().length() > 0 || jTFApellido.getText().length() > 0) {
+         if (jTFNombre.getText().length() > 0 || jTFApellido.getText().length() > 0 && JDCFechaNacimiento.getDate() != null) {
             alu = new Alumno();
             alu.setIdAlumno(Integer.parseInt(jTFCodigo.getText()));
             alu.setNombre(jTFNombre.getText());
@@ -253,7 +262,7 @@ public class AlumnoView extends javax.swing.JInternalFrame {
             jTFCodigo.setEnabled(false);
             alD.actualizarAlumno(alu);
         }else{
-            JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
+            JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacios");
         }
 
     }//GEN-LAST:event_jBActualizarActionPerformed
@@ -270,6 +279,7 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         jTFCodigo.setText("");
         jTFApellido.setText("");
         jTFDni.setText("");
+        JDCFechaNacimiento.setCalendar(null);
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
 
