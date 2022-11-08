@@ -250,12 +250,11 @@ public class AlumnoView extends javax.swing.JInternalFrame {
 
     private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
          if (jTFNombre.getText().length() > 0 || jTFApellido.getText().length() > 0 && JDCFechaNacimiento.getDate() != null) {
-            alu = new Alumno();
             alu.setIdAlumno(Integer.parseInt(jTFCodigo.getText()));
             alu.setNombre(jTFNombre.getText());
             alu.setEstado(jCBEstado.isSelected());
             alu.setApellido(jTFApellido.getText());
-            alu.setDni(Integer.parseInt(jTFDni.getText()));
+            alu.setDni(Integer.parseInt(jTFDni.getText())); 
             alu.setFechaDeNacimiento(LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(JDCFechaNacimiento.getDate())));
             jBGuardar.setEnabled(false);
             jBBuscar.setEnabled(false);
