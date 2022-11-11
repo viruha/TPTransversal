@@ -52,6 +52,12 @@ public class InscripcionView extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setText("Inscripciones");
 
+        jCBAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBAlumnosActionPerformed(evt);
+            }
+        });
+
         buttonGroup1.add(jRBNoInscriptas);
         jRBNoInscriptas.setText("No Inscriptas");
         jRBNoInscriptas.addActionListener(new java.awt.event.ActionListener() {
@@ -220,6 +226,16 @@ public class InscripcionView extends javax.swing.JInternalFrame {
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
 this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jBSalirActionPerformed
+
+    private void jCBAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBAlumnosActionPerformed
+if (jRBInscriptas.isSelected()){
+jRBInscriptasActionPerformed(evt);
+}
+if (jRBNoInscriptas.isSelected()){
+jRBNoInscriptasActionPerformed(evt);
+}
+    
+    }//GEN-LAST:event_jCBAlumnosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
